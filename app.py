@@ -255,5 +255,5 @@ def update_output_div(Date_Start, Date_End): # ,  Drop_Source):
 # RUN APP================================================================================================
 #
 if __name__ == '__main__':
-    app.run(debug=False) # (8)
+    app.run(debug=True) # (8)
 
