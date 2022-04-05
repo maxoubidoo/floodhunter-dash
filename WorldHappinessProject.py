@@ -98,6 +98,7 @@ if __name__ == '__main__':
 
     app = dash.Dash(__name__, external_stylesheets=external_stylesheets) # (3)
 
+    server = app.server
 
     app.layout = html.Div(
     children=[
