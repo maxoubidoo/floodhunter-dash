@@ -7,7 +7,6 @@
 import plotly_express as px
 
 import dash
-
 from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
@@ -23,65 +22,15 @@ import json
 
 import numpy as np
 
-
-#
-# Data Treatment==========================================================================================
-#
-
-wh2015 = pd.read_csv ("./2015.csv")
-wh2016 = pd.read_csv ("./2016.csv")
-wh2017 = pd.read_csv ("./2017.csv")
-wh2018 = pd.read_csv ("./2018.csv")
-wh2019 = pd.read_csv ("./2019.csv")
-wh2020 = pd.read_csv ("./2020.csv")
+import init
 
 
-#Renaming to have common names
-wh2017.rename(columns={'Happiness.Rank': 'Happiness Rank', 'Happiness.Score': 'Happiness Score',
-                        "Economy..GDP.per.Capita." : "Economy (GDP per Capita)","Health..Life.Expectancy.":"Health (Life Expectancy)",
-                        "Trust..Government.Corruption.":"Trust (Government Corruption)", "Dystopia.Residual" : "Dystopia Residual"}, inplace=True)
-
-wh2018.rename(columns={ "Overall rank" : "Happiness Rank" ,  "Country or region" : "Country" , "Score" : "Happiness Score",
-                        "GDP per capita" : "Economy (GDP per Capita)", "Healthy life expectancy" : "Health (Life Expectancy)",
-                        "Freedom to make life choices" : "Freedom", "Perceptions of corruption" : "Trust (Government Corruption)",
-                        "Social support" : "Family" }, inplace=True)
-
-wh2019.rename(columns={ "Overall rank" : "Happiness Rank" ,  "Country or region" : "Country" , "Score" : "Happiness Score",
-                        "GDP per capita" : "Economy (GDP per Capita)", "Healthy life expectancy" : "Health (Life Expectancy)",
-                        "Freedom to make life choices" : "Freedom", "Perceptions of corruption" : "Trust (Government Corruption)",
-                        "Social support" : "Family" }, inplace=True)
-
-wh2020.rename(columns={ "Country name" : "Country", "Regional indicator" : "Region", "Ladder score" : "Happiness Score",
-                         "Freedom to make life choices" : "Freedom","Logged GDP per capita" : "Economy (GDP per Capita)", 
-                         "Healthy life expectancy" : "Health (Life Expectancy)", "Perceptions of corruption" : "Trust (Government Corruption)",
-                         "Social support" : "Family", "Dystopia + residual" : "Dystopia Residual"},inplace=True)
-
-
-#
-#Function definition================================================================================================
-#
-
-styles = {
-    'pre': {
-        'border': 'thin lightgrey solid',
-        'overflowX': 'scroll'
-    }
-}
-
-
-try:
-    img = np.array(Image.open(f"plouf.jpg"))              #f"assets/{input}"))
-except OSError:
-    raise PreventUpdate
-
-fig = px.imshow(img, color_continuous_scale="gray")
-fig.update_layout(coloraxis_showscale=False)
-fig.update_xaxes(showticklabels=False)
-fig.update_yaxes(showticklabels=False)
 
 #
 # Main================================================================================================
 #
+
+wh2015 , fig , styles = init.setup()
 
 external_stylesheets = [
     'https://codepen.io/chriddyp/pen/bWLwgP.css',
