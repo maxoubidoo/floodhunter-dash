@@ -254,6 +254,6 @@ def update_output_div(Date_Start, Date_End): # ,  Drop_Source):
 #
 # RUN APP================================================================================================
 #
-
-app.run_server(debug=False) # (8)
+if __name__ == '__main__':
+    app.run(debug=False) # (8)
 
