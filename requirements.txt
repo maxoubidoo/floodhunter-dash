@@ -5,4 +5,5 @@ gunicorn == 20.1.0
 datetime == 4.4
 Pillow == 8.4.0
 numpy == 1.19.5
-werkeug == 2.0.0
+Werkeug == 2.0.0
+Flask == 2.0.2
