@@ -46,7 +46,7 @@ external_stylesheets = [
 
 
 colors = {
-    'background': '#ADD8E6',
+    'background': '#ffffff',
     'text': '#111111'
 }
 
@@ -82,7 +82,7 @@ plot_layout = {
 server = app.server
 
 
-image_filename = 'FloodHunter.png' # replace with your own image
+image_filename = 'FloodHunterN.png' # replace with your own image
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 
@@ -94,53 +94,54 @@ children=[
     #html.H1(children="FloodHunter", style={'textAlign': 'center', 'color': '#7FDBFF'}), #tittle
 
 
-    html.Div([
-    html.Img(  src='data:image/png;base64,{}'.format(encoded_image.decode()),style={'height': '50%', 'width': '50%'}) ,
-    ], style={'textAlign': 'center'}),
+    html.Div(style={'backgroundColor': '#ffffff'}, children=[
+        html.Div([
+        html.Img(  src='data:image/png;base64,{}'.format(encoded_image.decode()),style={'height': '40%', 'width': '40%', }) ,
+        ], style={'textAlign': 'center'}),
 
-    
-    
-    html.P(
-        children="FLoodHunter visual reprsentation"
-    ),    #subtittle
-
-
-    html.Div( style={'textAlign': 'left','color': colors['text']},
-        children=[ 
-
-            html.Label('Start'),
-
-            dcc.DatePickerSingle(
-                id='Date_Start',
-                min_date_allowed=date(2000, 1, 1),
-                max_date_allowed=date(2030, 12, 12),
-                initial_visible_month=date(2008, 1, 1),
-                display_format='D/M/Y' ,
-                date=date(2008, 1, 1)
-            ),
-
-            html.Div(id='output_Date_Start'),
-        ],
-    ),
+        
+        
+        # html.P(
+        #     children="FLoodHunter visual reprsentation"
+        # ),    #subtittle
 
 
-    html.Div( style={'textAlign': 'left','color': colors['text']},
-        children=[ 
-            html.Label('End'),
+        html.Div( style={'textAlign': 'left','color': colors['text'], 'width': '49%', 'display': 'inline-block', 'textAlign': 'center'},
+            children=[ 
 
-            dcc.DatePickerSingle(
-                id='Date_End',
-                min_date_allowed=date(2000, 1, 1),
-                max_date_allowed=date(2030, 12, 12),
-                initial_visible_month=date(2018, 1, 1),
-                display_format='D/M/Y' ,
-                date=date(2018, 1, 1)
-            ),
+                html.Label('Start'),
 
-            html.Div(id='output_Date_End'),
+                dcc.DatePickerSingle(
+                    id='Date_Start',
+                    min_date_allowed=date(2000, 1, 1),
+                    max_date_allowed=date(2030, 12, 12),
+                    initial_visible_month=date(2008, 1, 1),
+                    display_format='D/M/Y' ,
+                    date=date(2008, 1, 1)
+                ),
 
-        ],
-    ),
+                html.Div(id='output_Date_Start'),
+            ],
+        ),
+
+
+        html.Div( style={'textAlign': 'left','color': colors['text'],'width': '49%', 'display': 'inline-block', 'textAlign': 'center' },
+            children=[ 
+                html.Label('End'),
+
+                dcc.DatePickerSingle(
+                    id='Date_End',
+                    min_date_allowed=date(2000, 1, 1),
+                    max_date_allowed=date(2030, 12, 12),
+                    initial_visible_month=date(2018, 1, 1),
+                    display_format='D/M/Y' ,
+                    date=date(2018, 1, 1)
+                ),
+
+                html.Div(id='output_Date_End'),
+
+            ],
+        ),],),
 
     #html.Label('Source'),
 
@@ -254,8 +255,8 @@ def update_output_div(Date_Start, Date_End): # ,  Drop_Source):
                 "source": [
                     "https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/tile/{z}/{y}/{x}"
                 ]}],
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)'
+        paper_bgcolor='rgba(23,61,124,255)',
+        plot_bgcolor='rgba(23,61,124,255)'
         )
 
     #graph1.update_traces(marker_size=15)   
@@ -282,7 +283,7 @@ def update_output_div(Date_Start, Date_End): # ,  Drop_Source):
         raise PreventUpdate
 
     fig = px.imshow(img, color_continuous_scale="gray")
-    fig.update_layout(coloraxis_showscale=False, paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)')
+    fig.update_layout(coloraxis_showscale=False, paper_bgcolor='rgba(23,61,124,255)',plot_bgcolor='rgba(23,61,124,255)')
     fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(showticklabels=False)
     
