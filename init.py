@@ -34,7 +34,7 @@ def setup():
 
 
     fig = px.imshow(img, color_continuous_scale="gray")
-    fig.update_layout(coloraxis_showscale=False)
+    fig.update_layout(coloraxis_showscale=False,  paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
     fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(showticklabels=False)
 

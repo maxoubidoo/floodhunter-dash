@@ -46,8 +46,8 @@ external_stylesheets = [
 
 
 colors = {
-    'background': '#111111',
-    'text': '#7FDBFF'
+    'background': '#ADD8E6',
+    'text': '#111111'
 }
 
 #if __name__ == '__main__':
@@ -93,7 +93,10 @@ children=[
 
     #html.H1(children="FloodHunter", style={'textAlign': 'center', 'color': '#7FDBFF'}), #tittle
 
-    html.Img(  src='data:image/png;base64,{}'.format(encoded_image.decode()),style={'height':'100%'}) ,
+
+    html.Div([
+    html.Img(  src='data:image/png;base64,{}'.format(encoded_image.decode()),style={'height': '50%', 'width': '50%'}) ,
+    ], style={'textAlign': 'center'}),
 
     
     
@@ -102,7 +105,7 @@ children=[
     ),    #subtittle
 
 
-    html.Div( style={'textAlign': 'center','color': colors['text']},
+    html.Div( style={'textAlign': 'left','color': colors['text']},
         children=[ 
 
             html.Label('Start'),
@@ -121,7 +124,7 @@ children=[
     ),
 
 
-    html.Div( style={'textAlign': 'center','color': colors['text']},
+    html.Div( style={'textAlign': 'left','color': colors['text']},
         children=[ 
             html.Label('End'),
 
@@ -156,11 +159,11 @@ children=[
     #html.Div(id='Drop_Source_output'),#Confirmation du menu déroulant
 
     dcc.Graph(id='graph1',figure={'layout': {
+                "showbackground": True,
                 'plot_bgcolor': colors['background'],
                 'paper_bgcolor': colors['background'],
-                'font': {
-                    'color': colors['text']
-                }}}),
+                'font': {'color': colors['text']}
+                }}),
 
     html.Div([
         dcc.Markdown("""
@@ -250,9 +253,10 @@ def update_output_div(Date_Start, Date_End): # ,  Drop_Source):
                 "sourcetype": "raster",
                 "source": [
                     "https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/tile/{z}/{y}/{x}"
-                ]
-            }
-        ])
+                ]}],
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)'
+        )
 
     #graph1.update_traces(marker_size=15)   
 
@@ -278,9 +282,10 @@ def update_output_div(Date_Start, Date_End): # ,  Drop_Source):
         raise PreventUpdate
 
     fig = px.imshow(img, color_continuous_scale="gray")
-    fig.update_layout(coloraxis_showscale=False)
+    fig.update_layout(coloraxis_showscale=False, paper_bgcolor='rgba(0,0,0,0)',plot_bgcolor='rgba(0,0,0,0)')
     fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(showticklabels=False)
+    
 
 
 
