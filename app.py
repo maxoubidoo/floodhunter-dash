@@ -23,6 +23,9 @@ import numpy as np
 
 import init
 
+import base64
+
+
 
 
 #
@@ -42,6 +45,11 @@ external_stylesheets = [
 ]
 
 
+colors = {
+    'background': '#111111',
+    'text': '#7FDBFF'
+}
+
 #if __name__ == '__main__':
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets) 
@@ -54,20 +62,47 @@ axis_template = {
     "zerolinecolor": "rgb(255, 255, 255)",
 }
 
+plot_layout = {
+    "title": "",
+    "margin": {"t": 0, "b": 0, "l": 0, "r": 0},
+    "font": {"size": 12, "color": "white"},
+    "showlegend": False,
+    "plot_bgcolor": "#141414",
+    "paper_bgcolor": "#141414",
+    "scene": {
+        "xaxis": axis_template,
+        "yaxis": axis_template,
+        "zaxis": axis_template,
+        "aspectratio": {"x": 1, "y": 1.2, "z": 1},
+        "camera": {"eye": {"x": 1.25, "y": 1.25, "z": 1.25}},
+        "annotations": [],
+    },
+}
+
 server = app.server
 
-app.layout = html.Div(
+
+image_filename = 'FloodHunter.png' # replace with your own image
+encoded_image = base64.b64encode(open(image_filename, 'rb').read())
+
+
+
+
+app.layout = html.Div(style={'backgroundColor': colors['background']}, 
 children=[
 
-    html.H1(children="FloodHunter", style={'textAlign': 'center', 'color': '#7FDBFF'}), #tittle
+    #html.H1(children="FloodHunter", style={'textAlign': 'center', 'color': '#7FDBFF'}), #tittle
+
+    html.Img(  src='data:image/png;base64,{}'.format(encoded_image.decode()),style={'height':'100%'}) ,
+
+    
     
     html.P(
         children="FLoodHunter visual reprsentation"
     ),    #subtittle
 
 
-    html.Div(
-        #className="column",
+    html.Div( style={'textAlign': 'center','color': colors['text']},
         children=[ 
 
             html.Label('Start'),
@@ -86,7 +121,7 @@ children=[
     ),
 
 
-    html.Div(
+    html.Div( style={'textAlign': 'center','color': colors['text']},
         children=[ 
             html.Label('End'),
 
@@ -120,7 +155,12 @@ children=[
 
     #html.Div(id='Drop_Source_output'),#Confirmation du menu déroulant
 
-    dcc.Graph(id='graph1'), 
+    dcc.Graph(id='graph1',figure={'layout': {
+                'plot_bgcolor': colors['background'],
+                'paper_bgcolor': colors['background'],
+                'font': {
+                    'color': colors['text']
+                }}}),
 
     html.Div([
         dcc.Markdown("""

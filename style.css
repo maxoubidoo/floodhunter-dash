@@ -238,3 +238,7 @@ header .languages li a:hover{
     min-height: 10vh;
     position: relative;
 }
+
+body{
+    margin: 0;
+}
