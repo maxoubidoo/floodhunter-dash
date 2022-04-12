@@ -7,8 +7,7 @@
 import plotly_express as px
 
 import dash
-from dash import dcc
-from dash import html
+from dash import dcc , html , dash_table
 from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 
@@ -33,9 +32,9 @@ import init
 wh2015 , fig , styles = init.setup()
 
 external_stylesheets = [
-    'https://codepen.io/chriddyp/pen/bWLwgP.css',
+    './style.css',
     {
-        'href': 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
+        'href': './style.css',
         'rel': 'stylesheet',
         'integrity': 'sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO',
         'crossorigin': 'anonymous'
@@ -45,7 +44,15 @@ external_stylesheets = [
 
 #if __name__ == '__main__':
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets) # (3)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets) 
+
+
+axis_template = {
+    "showbackground": True,
+    "backgroundcolor": "#141414",
+    "gridcolor": "rgb(255, 255, 255)",
+    "zerolinecolor": "rgb(255, 255, 255)",
+}
 
 server = app.server
 
@@ -55,12 +62,12 @@ children=[
     html.H1(children="FloodHunter", style={'textAlign': 'center', 'color': '#7FDBFF'}), #tittle
     
     html.P(
-        children="FLowHunter visual reprsentation"
+        children="FLoodHunter visual reprsentation"
     ),    #subtittle
 
 
     html.Div(
-        className="row",
+        #className="column",
         children=[ 
 
             html.Label('Start'),
@@ -75,7 +82,12 @@ children=[
             ),
 
             html.Div(id='output_Date_Start'),
+        ],
+    ),
 
+
+    html.Div(
+        children=[ 
             html.Label('End'),
 
             dcc.DatePickerSingle(
@@ -97,18 +109,18 @@ children=[
     # dcc.Checklist(
     #     id = "Drop_Source",
     #     options=[
-    #     {'label': 'NOTREAPPLI', 'value': '???'},
+    #     {'label': 'FloodHunter', 'value': 'FloodHunter'},
     #     {'label': 'Twitter', 'value': 'Twitter'},
     #     {'label': 'Tik Tok', 'value': 'TikTok'},
     #     {'label': 'Facebook', 'value': 'Facebook'}
     #     ],
-    #     value=['???', 'Twitter' , 'TikTok', 'Facebook'],
+    #     value=['FloodHunter', 'Twitter' , 'TikTok', 'Facebook'],
     #     labelStyle={'display': 'inline-block'}
     # ),#CheckList 
 
     #html.Div(id='Drop_Source_output'),#Confirmation du menu déroulant
 
-    dcc.Graph(id='graph1'), #bubble map
+    dcc.Graph(id='graph1'), 
 
     html.Div([
         dcc.Markdown("""
@@ -119,7 +131,7 @@ children=[
         html.Pre(id='click-data', style=styles['pre']),
     ], className='three columns'),
 
-    dcc.Graph(id='image', figure = fig), #bubble map
+    dcc.Graph(id='image', figure = fig), 
 
 
 
@@ -146,7 +158,6 @@ Output('output_Date_End', 'children'),
 
 Input('Date_Start', 'date') ,
 Input('Date_End', 'date'),
-#Input('Drop_Source', 'value'),
 
 ) #Elements interactifs
 
@@ -255,5 +266,5 @@ def update_output_div(Date_Start, Date_End): # ,  Drop_Source):
 # RUN APP================================================================================================
 #
 if __name__ == '__main__':
-    app.run(debug=True) # (8)
+    app.run_server(debug=True) # app.run_server = local / app.run = server
 

@@ -1,0 +1,240 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Bahnschrift', sans-serif;
+    scroll-behavior: smooth;
+}
+
+p{
+    font-weight: 300;
+    color: #000000;
+
+}
+
+/* Navigation */
+header{
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    padding: 20px 10px;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    transition: 0.5s;
+    background: #ffffff;
+}
+
+.logo{
+    color: #000000;
+    font-weight: bold;
+    font-size: 2em;
+    text-decoration: none;
+}
+
+.logo span{
+    color: #4e64a1;
+}
+
+.navbar{
+    display: flex;
+    position: relative;
+
+}
+
+.navbar li{
+    list-style: none;
+    margin-top: 10px;
+}
+
+.navbar a{
+    color : #000000;
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 700;
+}
+
+.download{
+    padding: 10px 20px;
+    background: #4e64a1;
+    margin-top: 0px;
+    text-transform: uppercase;
+}
+
+.download:hover{
+    background: #405aa3;
+    transition: ease-out;
+}
+
+header .navbar li a:hover{
+    color: #000000;
+    border-bottom: 2px solid #405aa3;
+}
+
+.languages{
+    display: flex;
+    position: relative;
+
+}
+
+.languages li{
+    list-style: none;
+}
+
+.languages a{
+    color : #000000;
+    text-decoration: none;
+    margin-left: 30px;
+    font-weight: 700;
+}
+
+header .languages li a:hover{
+    color: #000000;
+    border-bottom: 2px solid #405aa3;
+}
+
+/* Project */
+.home_project{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home_project .content{
+    max-width: 70%;
+    text-align: center;
+}
+
+.home_project .content h2{
+    color: #000000;
+    font-size: 3em;
+    text-transform: capitalize;
+}
+
+.content p:nth-child(2){
+    color: #000000;
+    font-size: 1.2em;
+}
+
+/* World Board */
+.home_world{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(./images/home_world_background.jpg);
+    background-size: cover;
+}
+
+.home_world .content{
+    max-width: 70%;
+    text-align: center;
+}
+
+.home_world .content h2{
+    color: #000000;
+    font-size: 3em;
+    text-transform: capitalize;
+}
+
+.content p:nth-child(2){
+    color: #000000;
+    font-size: 1.2em;
+}
+
+.btn1{
+    font-size: 1em;
+    color: #000000;
+    background: #4e64a1;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-top: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: 0.5s;
+    margin-left: 10px;
+}
+
+.btn1:hover{
+    background: #405aa3;
+    letter-spacing: 1px;
+}
+
+/* Get Data */
+.home_data{
+    padding: 100px;
+}
+
+.row{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.row .col1{
+    position: relative;
+    width: 48%;
+    justify-content: center;
+    align-items: center;
+}
+
+.row .col1 h2{
+    margin-bottom: 20px;
+}
+
+.title{
+    color: #4e64a1;
+    font-size: 2em;
+    font-weight: 300px;
+    text-transform: capitalize;
+}
+
+.row .col1 img{
+    width: 100%;
+    min-height: 10vh;
+    position: relative;
+}
+
+/* About Us */
+/*.home_aboutUs{
+    padding: 100px;
+}*/
+
+.row{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.row .col1{
+    position: relative;
+    width: 48%;
+    justify-content: center;
+    align-items: center;
+}
+
+.row .col1 h2{
+    margin-bottom: 20px;
+}
+
+.title{
+    color: #4e64a1;
+    font-size: 2em;
+    font-weight: 300px;
+    text-transform: capitalize;
+}
+
+.row .col1 img{
+    width: 100%;
+    min-height: 10vh;
+    position: relative;
+}
