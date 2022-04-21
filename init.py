@@ -5,6 +5,22 @@ import plotly_express as px
 from dash.exceptions import PreventUpdate
 
 
+def read_mongo(collection, query={}, no_id=True):
+    """ Read from Mongo and Store into DataFrame """
+
+
+    # Make a query to the specific DB and Collection
+    cursor = collection.find(query)
+
+    # Expand the cursor and construct the DataFrame
+    df =  pd.DataFrame(list(cursor))
+
+    # Delete the _id
+    if no_id:
+        del df['_id']
+
+    return df
+
 
 def setup():
         #
@@ -27,7 +43,7 @@ def setup():
 
 
     try:
-        img = np.array(Image.open(f"plouf.jpg"))              #f"assets/{input}"))
+        img = np.array(Image.open(f"plouf2.jpg"))              #f"assets/{input}"))
     except OSError:
         raise PreventUpdate
 

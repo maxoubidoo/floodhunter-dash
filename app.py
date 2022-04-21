@@ -1,31 +1,37 @@
-# filename = 'dash-01.py'
-
 #
 # Imports================================================================================================
 #
 
 import plotly_express as px
+import pandas as pd
+import numpy as np
 
 import dash
 from dash import dcc , html , dash_table
 from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 
-import pandas as pd
-
 from datetime import date
-
 from PIL import Image
-
 import json
-
-import numpy as np
-
-import init
-
 import base64
 
 
+import init
+
+import pymongo
+from pymongo import MongoClient
+
+#
+# Recuperation/Traitement des données================================================================================================
+#
+
+
+client = pymongo.MongoClient("mongodb+srv://Maxoubioo:FloodHunter@floodhunter.bl1w5.mongodb.net/FloodHunter?retryWrites=true&w=majority")
+
+
+db = client.FloodHunter
+collection = db['Submits'] 
 
 
 #
@@ -49,8 +55,6 @@ colors = {
     'background': '#ffffff',
     'text': '#111111'
 }
-
-#if __name__ == '__main__':
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets) 
 
@@ -91,19 +95,10 @@ encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 app.layout = html.Div(style={'backgroundColor': colors['background']}, 
 children=[
 
-    #html.H1(children="FloodHunter", style={'textAlign': 'center', 'color': '#7FDBFF'}), #tittle
-
-
     html.Div(style={'backgroundColor': '#ffffff'}, children=[
         html.Div([
         html.Img(  src='data:image/png;base64,{}'.format(encoded_image.decode()),style={'height': '40%', 'width': '40%', }) ,
         ], style={'textAlign': 'center'}),
-
-        
-        
-        # html.P(
-        #     children="FLoodHunter visual reprsentation"
-        # ),    #subtittle
 
 
         html.Div( style={'textAlign': 'left','color': colors['text'], 'width': '49%', 'display': 'inline-block', 'textAlign': 'center'},
@@ -209,41 +204,15 @@ Input('Date_End', 'date'),
 def update_output_div(Date_Start, Date_End): # ,  Drop_Source):
 
 
-    data = wh2015
+    data = init.read_mongo(collection)
 
-    datageo = pd.DataFrame()
+    graph1 = px.scatter_mapbox(data, lat="Latitude", lon="Longitude", hover_name="Date", hover_data=["Username"],
+                    color_discrete_sequence=["fuchsia"], zoom=1, height=800 )
 
-    datageo = data.copy()
+    # datageo = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv")
 
-    datageo["Happiness Score"] = datageo['Happiness Score'].apply(lambda x: x**3)
-
-
-    # graph1 = px.scatter_geo(datageo, locations="Country", color="Region",locationmode="country names",
-    #         hover_name="Country", size="Happiness Score",
-    #         projection="natural earth")
-
-    # graph1.update_layout(
-    #     geo = dict(
-    #         showland = True,
-    #         landcolor = "rgb(212, 212, 212)",
-    #         showsubunits = True,
-    #         subunitcolor = "rgb(000, 255, 000)",
-    #         showcountries = True,                
-    #         countrycolor = "rgb(255, 255, 255)",
-    #         showlakes = True,
-    #         lakecolor = "rgb(000, 000, 255)",
-    #         showrivers=True,
-    #         rivercolor="Blue" , 
-    #         #resolution=50,
-
-            
-    #     )
-    #     )
-
-    datageo = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/us-cities-top-1k.csv")
-
-    graph1 = px.scatter_mapbox(datageo, lat="lat", lon="lon", hover_name="City", hover_data=["State", "Population"],
-                    color_discrete_sequence=["fuchsia"], zoom=1, height=800)
+    # graph1 = px.scatter_mapbox(datageo, lat="lat", lon="lon", hover_name="City", hover_data=["State", "Population"],
+    #                 color_discrete_sequence=["fuchsia"], zoom=1, height=800)
 
     graph1.update_layout(
         clickmode='event+select',
@@ -259,26 +228,10 @@ def update_output_div(Date_Start, Date_End): # ,  Drop_Source):
         plot_bgcolor='rgba(23,61,124,255)'
         )
 
-    #graph1.update_traces(marker_size=15)   
 
-    # graph1.add_layout_image(
-    # dict(
-    #     source=Image.open(f"plouf.jpg"),
-    #     xref= "x" ,
-    #     yref= "y" ,
-    #     xanchor="center",
-    #     yanchor="middle",
-    #     x= 10 ,
-    #     y= 10 ,
-    #     sizex= 50 ,
-    #     sizey= 50 ,
-    #     sizing="contain",
-    #     opacity=0.8,
-    #     layer="above"
-    # )),
 
     try:
-        img = np.array(Image.open(f"plouf.jpg"))              #f"assets/{input}"))
+        img = np.array(Image.open(f"plouf2.JPG"))              #f"assets/{input}"))
     except OSError:
         raise PreventUpdate
 
@@ -303,8 +256,6 @@ def update_output_div(Date_Start, Date_End): # ,  Drop_Source):
                 output_Date_End =  string_prefix + date_string
 
     #Drop_Source_output =     Drop_Source       
-
-
     return     graph1 , output_Date_Start , output_Date_End #Drop_Source_output,
 
 
